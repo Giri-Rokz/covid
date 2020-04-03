@@ -8,26 +8,33 @@
 	</head>
 	<body>
 		<header>
-			<center><canvas id="covid19" width="170" height="55"></canvas></center>
+			<center><canvas id="covid19" width="150" height="40" style="font-size:11px";"border:1px solid #000000;"></canvas></center>
 		</header>
+		
+		<!--<div id="info">
+			<marquee>Stay alert! Maintain social distancing!</marquee>
+		</div>-->
+		
 		<nav>
-			<ul>
-				<li class="active">About</li>
-				<li>Track</li>
+			<ul id="menu">
+				<li class="active">Home</li>
+				<li>Links</li>
+				<li>About</li>
 			</ul>
-		</nav>		
-		<section>			
-			<h3>Stay clear of these locations. Trespassed by the infected!</h3>
-			<select id="patients">
-				<option value="0">Select a patient</option>
-				<option value="12.9815, 80.2180">Patient P01</option>
-				<option value="-33.890542, 151.274856">Patient P02</option>
-			</select>
-			<div id="map" style="width:100%;height:400px"></div>
-		</section>
-		<noscript>Oops! Your browser doesn't support Javascript</noscript>
-		<script src="script.js" type="text/javascript"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initMap"
-    async defer></script>
+		</nav>
+		<div id="mainContainer">
+			<section>			
+				<h3>Stay clear of these locations. Trespassed by the infected!</h3>
+				<select id="patients">
+					<option value="0">Select a patient</option>
+					<option value="12.9815,80.2180,11.1401,79.0786">Patient P01</option>
+					<option value="-33.890542, 151.274856">Patient P02</option>
+				</select>
+				<div id="map" style="width:100%;height:400px"></div>
+			</section>
+			<noscript>Oops! Your browser doesn't support Javascript</noscript>
+			<script src="script.js" type="text/javascript"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initMap" async defer></script>
+		</div>
 	</body>
 </html>
