@@ -1,0 +1,41 @@
+html {
+  font-family: Interstate sans-serif;
+  padding: 1em;
+  background-color: #faf0e6;
+}
+html,body {
+	height: 100%
+}
+* {
+  box-sizing: border-box;
+}
+nav {
+  position: sticky;
+  top: 1em;
+  width: 100%;
+  padding: 1% 0 0 0;
+}
+ul {
+  list-style-type: none;
+  background-color: #48d1cc;
+  padding: 1%;
+  margin: 1% 0;
+}
+li {
+  display: inline;
+  color: white;
+  font-size: calc(1vw + 10.25px);
+  padding: 1%;
+  cursor: pointer;
+}
+li:hover {
+  background-color: black;
+  cursor: pointer;
+}
+li.active {
+  background-color: tomato;
+}
+/*Apr2*/
+#map {
+	height: 100%
+}
