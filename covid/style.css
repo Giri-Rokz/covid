@@ -39,3 +39,6 @@ li.active {
 #map {
 	height: 100%
 }
+#patients {
+	margin: 0 0 10px 0;
+}
