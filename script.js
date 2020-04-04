@@ -11,9 +11,35 @@ function initMap() {
 	var center = {lat: 11.1271, lng: 78.6569};
 	map = new google.maps.Map(document.getElementById('map'), {
 	  center: center,
-	  zoom: 12,
+	  zoom: 6,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
-	});	
+	});
+	//this.buildDropdown();
+}
+
+async function makePromise() {
+    let xhr = new XMLHttpRequest();
+    return new Promise((res,rej)=> {
+    	xhr.open('GET',"https://api.covid19india.org/travel_history.json",true);
+    	xhr.send();
+    	xhr.onReadyStateChange = ()=> {
+    		if(xhr.readyState == 4 && xhr.status>= 300) {
+                reject(xhr.status);
+    		} else {
+    			resolve(xhr.responseText);
+    		}
+    	}
+    })	
+}
+
+async function buildDropdown() {
+	debugger;
+	try {
+		let data = await makePromise();
+		console.log(data);
+	}catch(err) {
+		alert("Sorry! Our site is under maintenance. Error code:"+err);
+	}
 }
 
 function setup() {
@@ -25,17 +51,42 @@ function setup() {
 
 function switchMenu(e) {
 	document.querySelector('.active').classList.remove("active");
-	e.currentTarget.classList.add("active");	
+	e.currentTarget.classList.add("active");
+	let clone;
+	switch(e.currentTarget.id) {
+		case "links": 
+			const linksTemplate = document.querySelector('#linksTemplate');
+			clone = document.importNode(linksTemplate.content,true);
+			showMenu(clone);
+			break;
+		case "about":
+			const aboutTemplate = document.querySelector('#aboutTemplate');
+			clone = document.importNode(aboutTemplate.content,true);			
+			showMenu(clone);
+			break;
+		default:
+			document.querySelector('#mainContainer').style.display = "block";
+			document.querySelector('#menuBody').style.display = "none";			
+	}	
+}
+function showMenu(clone) {
+    document.querySelector('#mainContainer').style.display = "none";
+    document.querySelector('#menuBody').style.display = "block";
+	document.querySelector('#menuBody').innerHTML = "";
+	document.querySelector('#menuBody').appendChild(clone);
 }
 
 function changeMap(e) {
-	var value;	
+	var value,clone;	
+	const infoTemplate = document.querySelector('#infoTemplate');
+	clone = document.importNode(infoTemplate.content,true);			
 	value = e.currentTarget.value.split(",");	
-	//remove prev markers	
+	//remove prev markers
 	if(markers.length) {
 		for(let i=0;i<markers.length;i++) {
 			markers[i].setMap(null);	
 		}
+		markers = [];
 	}	
 	for(let i=0; i<value.length;i=i+2) {
 		var marker = new google.maps.Marker({
@@ -48,5 +99,12 @@ function changeMap(e) {
 			//OR map.panTo(marker.getPosition());  
 		}
 	}
+	if(value.length == 1) {
+        document.querySelector('#info').style.display = 'none';
+	} else {
+		document.querySelector('#info').innerHTML = "";
+		document.querySelector('#info').appendChild(clone);
+		document.querySelector('#info').style.display = 'block';
+	}	
 }
 this.setup();
