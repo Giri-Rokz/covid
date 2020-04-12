@@ -9,15 +9,13 @@
 	<body>
 		<header>
 			<center><canvas id="covid19" width="150" height="40" style="font-size:11px";"border:1px solid #000000;"></canvas></center>
-		</header>
-		
-		<!--<div id="info">
-			<marquee>Stay alert! Maintain social distancing!</marquee>
-		</div>-->		
+		</header>		
 		<template id="aboutTemplate">
 			<section>
 				<article>
 					It's a war that we are fighting against. We will surely come up trumps but we need to be wary of the consequences it might cause.
+					This is a small initiative to inform the public about the potential locations, where the virus infected persons have travelled to. By making sure
+					we avoid these places, we help to save ourselves from the threat of the COVID-19 virus and also to flatten the curve.			
 				</article>
 			</section>
 		</template>
@@ -30,7 +28,7 @@
 		</template>
 		<template id="infoTemplate">
 			<section>
-				<article>Info: This patient has visited the below marked locations.</article>
+				<article><b>Info:</b> This patient has visited the below marked locations: <span id="place"></span></article>
 			</section>
 		</template>
 		<nav>
@@ -41,18 +39,19 @@
 			</ul>
 		</nav>
 		<div id="mainContainer">
-			<section>			
-				<h3>Stay clear of these locations. Trespassed by the infected!</h3>
-				<select id="patients">
-					<option value="0">Select a patient</option>
-					<option value="12.9815,80.2180,11.1401,79.0786">Patient P01</option>
-					<option value="-33.890542, 151.274856">Patient P02</option>
+			<h3>Stay clear of these locations. Trespassed by the infected!</h3>
+			<section id="dropdowns">
+				<select id="states">
+					<option value="0">Select a state</option>					
 				</select>
-				<div id="info"></div>
-				<div id="map" style="width:100%;height:385px;bottom:5px"></div>
+				<select id="patients">
+					<option value="0">Select a patient</option>					
+				</select>				
 			</section>
+			<div id="info"></div>
+			<div id="map" style="width:100%;height:55.55vh;bottom:0.76vh"></div>
 			<noscript>Oops! Your browser doesn't support Javascript</noscript>
-			<script src="script.js" type="text/javascript"></script>
+			<script src="script.js" type="text/javascript"></script>			
 			<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initMap" async defer></script>
 		</div>
 		<div id="menuBody"></div>

@@ -1,5 +1,20 @@
-{
-	"travel_history": [
+let historyData = {
+	"Tamil Nadu": [
+		{
+			"_cn6ca": "1",
+			"accuracylocation": "",
+			"address": "Phoenix Market City, Velachery",
+			"datasource": "https://drive.google.com/drive/folders/1yAgt3IN1u8jX8g8jEasC4KNR26HUqeKi",
+			"latlong": "12.9905,80.2170",
+			"modeoftravel": "",
+			"pid": "P35",
+			"placename": "",
+			"timefrom": "29/02/2020 10:30:00",
+			"timeto": "29/02/2020 11:30:00",
+			"type": "placeVisit"
+		}			
+	],
+	"Kerala": [
 		{
 			"_cn6ca": "1",
 			"accuracylocation": "",
@@ -187,7 +202,7 @@
 			"accuracylocation": "",
 			"address": "Royal Studio, Pathanamthitta",
 			"datasource": "https://drive.google.com/drive/folders/1yAgt3IN1u8jX8g8jEasC4KNR26HUqeKi",
-			"latlong": "9.2611563,76.7879638,18",
+			"latlong": "9.2611563,76.7879638",
 			"modeoftravel": "",
 			"pid": "P35",
 			"placename": "",
@@ -3113,3 +3128,13 @@
 		}
 	]
 }
+
+let states = [
+	{
+		"state": "Tamil Nadu",
+		"latlng": "11.1271,78.6569"
+	},
+	{
+		"state": "Kerala",
+		"latlng": "10.8505,76.2711"
+	}];

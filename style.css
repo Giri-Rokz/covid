@@ -4,12 +4,12 @@ html {
   background-color: whitesmoke;
 }
 html,body {
-	height: 100%
-	margin:1%;
+	height: 100%;
+	margin: 1%;
 }
 body {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
 }
 * {
   box-sizing: border-box;
@@ -27,7 +27,7 @@ ul {
   margin: 1% 0;
 }
 #info {
-  padding: 0 0 3% 0;
+  padding: 0 0 1.55vh 0;
 }
 li {
   display: inline;
@@ -43,12 +43,24 @@ li.active {
 #map {
   height: 100%
 }
+select {
+  height: 1.7em;
+}
+#patients,#states {
+  margin: 0 0 2vh 0;
+}
 #patients {
-  margin: 0 0 4% 0;
+  margin: 0 0 0 32%;
 }
 .footer {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%
+}
+#dropdowns {
+  display: flex;
+}
+h3 {
+  margin: 2.8% 0;
 }

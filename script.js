@@ -8,45 +8,39 @@ canvas.strokeText("Covid-19",10,30);
 var map;
 var markers = [];
 function initMap() {
-	var center = {lat: 11.1271, lng: 78.6569};
 	map = new google.maps.Map(document.getElementById('map'), {
-	  center: center,
+	  center: {lat: 11.1271, lng: 78.6569},
 	  zoom: 6,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
-	});
-	//this.buildDropdown();
+	});		
 }
 
-async function makePromise() {
-    let xhr = new XMLHttpRequest();
-    return new Promise((res,rej)=> {
-    	xhr.open('GET',"https://api.covid19india.org/travel_history.json",true);
-    	xhr.send();
-    	xhr.onReadyStateChange = ()=> {
-    		if(xhr.readyState == 4 && xhr.status>= 300) {
-                reject(xhr.status);
-    		} else {
-    			resolve(xhr.responseText);
-    		}
-    	}
-    })	
-}
-
-async function buildDropdown() {
-	debugger;
+function buildDropdown() {	
 	try {
-		let data = await makePromise();
-		console.log(data);
+		let source = setupProtos.loadJS();		
+		source.then(()=>{            
+			this.historyData = historyData;
+			this.states = states;
+			this.states.forEach((x)=> {				
+                let option = document.createElement('option');
+                option.value = x.latlng;
+                option.innerHTML = x.state;				
+				document.getElementById("states").appendChild(option);
+			});			
+		}).catch((err)=>{alert("Sorry! Our site is under maintenance. Error code:"+err);});
 	}catch(err) {
-		alert("Sorry! Our site is under maintenance. Error code:"+err);
+	    console.log("We encountered an error. We'll be up soon!");
 	}
 }
 
 function setup() {
-	document.getElementById('patients').addEventListener('change',this.changeMap,true);
+	document.getElementById('patients').addEventListener('change',this.changeMap.bind(this),true);
+	document.getElementById('states').addEventListener('change',this.changeState.bind(this),true);
 	Array.from(document.getElementsByTagName('li')).forEach(function(x) {
 		x.addEventListener('click',this.switchMenu,true);
 	});
+	this.setupProtos();
+	this.buildDropdown();
 }
 
 function switchMenu(e) {
@@ -55,13 +49,11 @@ function switchMenu(e) {
 	let clone;
 	switch(e.currentTarget.id) {
 		case "links": 
-			const linksTemplate = document.querySelector('#linksTemplate');
-			clone = document.importNode(linksTemplate.content,true);
+			clone = setupProtos.loadTemplate('#linksTemplate');
 			showMenu(clone);
 			break;
 		case "about":
-			const aboutTemplate = document.querySelector('#aboutTemplate');
-			clone = document.importNode(aboutTemplate.content,true);			
+			clone = setupProtos.loadTemplate('#aboutTemplate');
 			showMenu(clone);
 			break;
 		default:
@@ -76,18 +68,68 @@ function showMenu(clone) {
 	document.querySelector('#menuBody').appendChild(clone);
 }
 
-function changeMap(e) {
-	var value,clone;	
-	const infoTemplate = document.querySelector('#infoTemplate');
-	clone = document.importNode(infoTemplate.content,true);			
-	value = e.currentTarget.value.split(",");	
-	//remove prev markers
+function changeState(e) {	
+    let value = e.currentTarget.value.split(",");
+	let first = document.getElementById("patients").firstElementChild;
+	let last = document.getElementById("patients").lastElementChild;
+	while (last && last!==first) { 
+		last.remove(); 
+		last = document.getElementById("patients").lastElementChild; 
+	}
+	if(value.length>1) {
+	    map.setCenter({lat:Number(value[0]),lng:Number(value[1])});	
+	}	
+	map.setZoom(6);
+	if(this.historyData[e.currentTarget.options[e.currentTarget.selectedIndex].innerHTML]) {
+	    this.historyData[e.currentTarget.options[e.currentTarget.selectedIndex].innerHTML].forEach((x)=> {				
+		if(x.latlong && x.latlong!="") {
+		    let option = document.createElement('option');
+			option.value = x.latlong;
+			option.setAttribute('data-place',x.address);
+			option.innerHTML = "Patient #"+x._cn6ca;		 	
+			document.getElementById("patients").appendChild(option);	
+		}		
+	  });	
+	}
+	this.removeMarkers();
+	if(document.querySelector('#info').style.display == "block") {
+		document.querySelector('#info').style.display = 'none';
+	}
+}
+
+function setupProtos() {
+    Function.prototype.loadJS = function() {    
+		return new Promise((res,rej)=> {
+			let script = document.createElement('script');
+			script.type = "text/javascript";
+			script.src = "data.js";
+			script.onload = file=> res(file);
+			script.onerror = err=> rej(err);
+			document.head.appendChild(script);
+		})	
+	}
+	Function.prototype.loadTemplate = function(id) {				 
+		 let template = document.querySelector(id);	
+		 return document.importNode(template.content,true);					 
+	}
+}
+
+function removeMarkers() {
 	if(markers.length) {
 		for(let i=0;i<markers.length;i++) {
 			markers[i].setMap(null);	
 		}
 		markers = [];
-	}	
+	}
+}
+
+function changeMap(e) {
+	var value,clone;	
+	clone = setupProtos.loadTemplate('#infoTemplate');
+	value = e.currentTarget.value.split(",");
+	//remove prev markers
+	this.removeMarkers();
+	map.setZoom(9);
 	for(let i=0; i<value.length;i=i+2) {
 		var marker = new google.maps.Marker({
 		  position: {lat: Number(value[i]), lng: Number(value[i+1])},
@@ -95,16 +137,21 @@ function changeMap(e) {
 		});
 		markers.push(marker);
 		if ((!map.getBounds().contains(marker.getPosition()))) {
-			map.setCenter(marker.getPosition());  
-			//OR map.panTo(marker.getPosition());  
+			map.setCenter(marker.getPosition());//map.panTo(marker.getPosition());    
 		}
-	}
+	}		
 	if(value.length == 1) {
         document.querySelector('#info').style.display = 'none';
 	} else {
 		document.querySelector('#info').innerHTML = "";
 		document.querySelector('#info').appendChild(clone);
+		document.getElementById('place').innerHTML = "";
+		document.getElementById('place').innerHTML = e.currentTarget.options[e.currentTarget.selectedIndex].getAttribute('data-place').trim();
 		document.querySelector('#info').style.display = 'block';
 	}	
 }
 this.setup();
+
+//GR
+/*let parser = new DOMParser();
+let optionNode = parser.parseFromString('"<option value="+x.latlng+"></option>"','text/html');*/
