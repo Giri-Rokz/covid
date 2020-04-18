@@ -7,7 +7,7 @@ canvas.strokeText("Covid-19",10,30);
 
 var map;
 var markers = [];
-function initMap() {
+window.initMap = ()=>{
 	map = new google.maps.Map(document.getElementById('map'), {
 	  center: {lat: 11.1271, lng: 78.6569},
 	  zoom: 6,
@@ -17,10 +17,11 @@ function initMap() {
 
 function buildDropdown() {	
 	try {
-		let source = setupProtos.loadJS();		
-		source.then(()=>{            
-			this.historyData = historyData;
-			this.states = states;
+		//let source = setupProtos.loadJS();		
+		//source.then(()=>{            
+		import(/* webpackChunkName:"data" */ './data.js').then((file)=> {
+			this.historyData = file.default.historyData;
+			this.states = file.default.states;
 			this.states.forEach((x)=> {				
                 let option = document.createElement('option');
                 option.value = x.latlng;
@@ -34,32 +35,23 @@ function buildDropdown() {
 }
 
 function setup() {
-	document.getElementById('patients').addEventListener('change',this.changeMap.bind(this),true);
-	document.getElementById('states').addEventListener('change',this.changeState.bind(this),true);
+	document.getElementById('patients').addEventListener('change',changeMap.bind(this),true);
+	document.getElementById('states').addEventListener('change',changeState.bind(this),true);
 	Array.from(document.getElementsByTagName('li')).forEach(function(x) {
-		x.addEventListener('click',this.switchMenu,true);
+		x.addEventListener('click',switchMenu,true);
 	});
-	this.setupProtos();
-	this.buildDropdown();
+	setupProtos();
+	buildDropdown();
 }
 
 function switchMenu(e) {
-	document.querySelector('.active').classList.remove("active");
-	e.currentTarget.classList.add("active");
-	let clone;
-	switch(e.currentTarget.id) {
-		case "links": 
-			clone = setupProtos.loadTemplate('#linksTemplate');
-			showMenu(clone);
-			break;
-		case "about":
-			clone = setupProtos.loadTemplate('#aboutTemplate');
-			showMenu(clone);
-			break;
-		default:
-			document.querySelector('#mainContainer').style.display = "block";
-			document.querySelector('#menuBody').style.display = "none";			
-	}	
+	import(/* webpackChunkName:"handler" */'./handler.js').then(function(file){		
+		window.handlerFunctions = file.handlers;
+		let clone = window.handlerFunctions.menuHandler(this);
+		if(clone) {
+		  showMenu(clone);			
+		}
+	}.bind(e));		
 }
 function showMenu(clone) {
     document.querySelector('#mainContainer').style.display = "none";
@@ -77,13 +69,13 @@ function changeState(e) {
 		last = document.getElementById("patients").lastElementChild; 
 	}
 	if(value.length>1) {
-	    map.setCenter({lat:Number(value[0]),lng:Number(value[1])});	
+		map.setCenter({lat:Number(value[0]),lng:Number(value[1])});	
 	}	
 	map.setZoom(6);
 	if(this.historyData[e.currentTarget.options[e.currentTarget.selectedIndex].innerHTML]) {
-	    this.historyData[e.currentTarget.options[e.currentTarget.selectedIndex].innerHTML].forEach((x)=> {				
+		this.historyData[e.currentTarget.options[e.currentTarget.selectedIndex].innerHTML].forEach((x)=> {				
 		if(x.latlong && x.latlong!="") {
-		    let option = document.createElement('option');
+			let option = document.createElement('option');
 			option.value = x.latlong;
 			option.setAttribute('data-place',x.address);
 			option.innerHTML = "Patient #"+x._cn6ca;		 	
@@ -91,10 +83,10 @@ function changeState(e) {
 		}		
 	  });	
 	}
-	this.removeMarkers();
+	removeMarkers();
 	if(document.querySelector('#info').style.display == "block") {
 		document.querySelector('#info').style.display = 'none';
-	}
+	}	 
 }
 
 function setupProtos() {
@@ -128,8 +120,8 @@ function changeMap(e) {
 	clone = setupProtos.loadTemplate('#infoTemplate');
 	value = e.currentTarget.value.split(",");
 	//remove prev markers
-	this.removeMarkers();
-	map.setZoom(9);
+	removeMarkers();
+	map.setZoom(10);
 	for(let i=0; i<value.length;i=i+2) {
 		var marker = new google.maps.Marker({
 		  position: {lat: Number(value[i]), lng: Number(value[i+1])},
@@ -141,7 +133,7 @@ function changeMap(e) {
 		}
 	}		
 	if(value.length == 1) {
-        document.querySelector('#info').style.display = 'none';
+		document.querySelector('#info').style.display = 'none';
 	} else {
 		document.querySelector('#info').innerHTML = "";
 		document.querySelector('#info').appendChild(clone);
@@ -150,7 +142,7 @@ function changeMap(e) {
 		document.querySelector('#info').style.display = 'block';
 	}	
 }
-this.setup();
+setup();
 
 //GR
 /*let parser = new DOMParser();

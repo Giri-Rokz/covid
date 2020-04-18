@@ -4,8 +4,8 @@ html {
   background-color: whitesmoke;
 }
 html,body {
-	height: 100%;
-	margin: 1%;
+  height: 100%;
+  margin: 1%;
 }
 body {
   display: flex;
@@ -27,7 +27,7 @@ ul {
   margin: 1% 0;
 }
 #info {
-  padding: 0 0 1.55vh 0;
+  padding: 0.4vh 0 1.55vh 0;
 }
 li {
   display: inline;
@@ -37,20 +37,20 @@ li {
   cursor: pointer;
 }
 li.active {
-  background-color: tomato;
+  background-color: red;
 }
 /*Apr2*/
 #map {
   height: 100%
 }
-select {
-  height: 1.7em;
-}
 #patients,#states {
   margin: 0 0 2vh 0;
+  width: 35%;
+  height: 1.7em;
+  background-color: white;
 }
 #patients {
-  margin: 0 0 0 32%;
+  margin: 0 0 0 29%;
 }
 .footer {
   position: fixed;

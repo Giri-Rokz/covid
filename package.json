@@ -1,0 +1,40 @@
+{
+  "name": "covid",
+  "version": "1.0.0",
+  "description": "An app to help track the paths traversed by Covid-19 patients in India",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Giri-Rokz/covid.git"
+  },
+  "keywords": [
+    "covid",
+    "app"
+  ],
+  "author": "GiriRokz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Giri-Rokz/covid/issues"
+  },
+  "homepage": "https://github.com/Giri-Rokz/covid#readme",
+  "dependencies": {
+    "D": "^1.0.0",
+    "css-loader": "^3.5.2",
+    "imagemin-webpack-plugin": "^2.4.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "webpack": "^4.42.1",
+    "webpack-fix-style-only-entries": "^0.4.0"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^5.1.1",
+    "html-webpack-plugin": "^4.2.0",
+    "imagemin": "^7.0.1",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.1",
+    "webpack-cli": "^3.3.11"
+  }
+}

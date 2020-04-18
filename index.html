@@ -3,8 +3,16 @@
 	<title>Covid19</title>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="description" content="Fight against corona virus/covid19. Stay home stay healthy and track corona virus hotspots statewise in India. Protect yourself from covid19">
 		<meta name="viewport" content="width=device-width initial-scale=1.0">
-		<link rel="stylesheet" href="style.css">
+		<link rel="preload" href="dist/style.css" as="style">
+		<link rel="preload" href="dist/script.bundle.js" as="script">
+		<link rel="preload" href="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initMap" as="script">
+		<link rel="preload" href="dist/data.bundle.js" as="script">		
+		<link rel="preload" href="dist/img/favicon.ico" as="image">
+		<link rel="preload" href="dist/handler.bundle.js" as="script">		
+		<link rel="stylesheet" href="dist/style.css" media="print" onload="this.media='all'">
+		<link rel="icon" type="image/png" href="dist/img/favicon.ico" alt="icon">
 	</head>
 	<body>
 		<header>
@@ -13,9 +21,8 @@
 		<template id="aboutTemplate">
 			<section>
 				<article>
-					It's a war that we are fighting against. We will surely come up trumps but we need to be wary of the consequences it might cause.
-					This is a small initiative to inform the public about the potential locations, where the virus infected persons have travelled to. By making sure
-					we avoid these places, we help to save ourselves from the threat of the COVID-19 virus and also to flatten the curve.			
+					It's a war that we are fighting against. We will surely come up trumps but we need to be wary of the consequences it might cause.<br><br>
+					This is a small initiative to inform the public about the potential locations, where the virus infected persons have travelled to. By making sure we avoid these places, we help to save ourselves from the threat of the COVID-19 virus and also to flatten the curve.			
 				</article>
 			</section>
 		</template>
@@ -41,17 +48,20 @@
 		<div id="mainContainer">
 			<h3>Stay clear of these locations. Trespassed by the infected!</h3>
 			<section id="dropdowns">
-				<select id="states">
-					<option value="0">Select a state</option>					
-				</select>
-				<select id="patients">
-					<option value="0">Select a patient</option>					
-				</select>				
+				<label for="states"></label>
+					<select id="states">
+						<option value="0">Select state</option>					
+					</select>
+				
+				<label for="patients"></label>
+					<select id="patients">
+						<option value="0">Select patient</option>					
+					</select>								
 			</section>
 			<div id="info"></div>
-			<div id="map" style="width:100%;height:55.55vh;bottom:0.76vh"></div>
+			<div id="map" style="width:100%;height:53.55vh;bottom:0.80vh"></div>
 			<noscript>Oops! Your browser doesn't support Javascript</noscript>
-			<script src="script.js" type="text/javascript"></script>			
+			<script src="dist/script.bundle.js" type="text/javascript"></script>
 			<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initMap" async defer></script>
 		</div>
 		<div id="menuBody"></div>

@@ -3138,3 +3138,5 @@ let states = [
 		"state": "Kerala",
 		"latlng": "10.8505,76.2711"
 	}];
+	
+export default {historyData,states};
