@@ -6,12 +6,12 @@
 		<meta name="description" content="Fight against corona virus/covid19. Stay home stay healthy and track corona virus hotspots statewise in India. Protect yourself from covid19">
 		<meta name="viewport" content="width=device-width initial-scale=1.0">
 		<link rel="preload" href="dist/style.css" as="style">
+		<link rel="stylesheet" href="dist/style.css" media="print" onload="this.media='all'">
 		<link rel="preload" href="dist/script.bundle.js" as="script">
 		<link rel="preload" href="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initMap" as="script">
 		<link rel="preload" href="dist/data.bundle.js" as="script">		
 		<link rel="preload" href="dist/img/favicon.ico" as="image">
 		<link rel="preload" href="dist/handler.bundle.js" as="script">		
-		<link rel="stylesheet" href="dist/style.css" media="print" onload="this.media='all'">
 		<link rel="icon" type="image/png" href="dist/img/favicon.ico" alt="icon">
 	</head>
 	<body>
@@ -22,14 +22,18 @@
 			<section>
 				<article>
 					It's a war that we are fighting against. We will surely come up trumps but we need to be wary of the consequences it might cause.<br><br>
-					This is a small initiative to inform the public about the potential locations, where the infected persons have travelled to. By making sure we avoid these places, we help to save ourselves from the threat of the COVID-19 virus and also to flatten the curve.			
+					This is a small initiative to inform the public about the potential locations, where the infected persons have travelled to. By making sure we avoid these places, we help to save ourselves from the threat of the COVID-19 virus and also to flatten the curve.<br><br>
+					Source of data - www.covid19india.org
 				</article>
 			</section>
 		</template>
 		<template id="linksTemplate">
 			<section>
 				<article>
-					For more info, make use of below useful links.
+					<p>For more info, make use of below useful links / contact numbers:</p>
+					<p><b>Central Helpline Number:</b> Toll free: 1075+91-11-23978043</p>
+					<p><b>Tamil Nadu Helpline Number:</b> 044-29510500</p>
+					<p><b>Email:</b> ncov2019@gmail.com<br></p>
 				</article>
 			</section>
 		</template>
@@ -46,7 +50,7 @@
 			</ul>
 		</nav>
 		<div id="mainContainer">
-			<h3>Stay clear of these locations. Trespassed by the infected!</h3>
+			<h4>Stay clear of these locations. Trespassed by the infected people!</h4>
 			<section id="dropdowns">
 				<label for="states"></label>
 					<select id="states">

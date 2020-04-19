@@ -86,7 +86,8 @@ function changeState(e) {
 	removeMarkers();
 	if(document.querySelector('#info').style.display == "block") {
 		document.querySelector('#info').style.display = 'none';
-	}	 
+		document.querySelector('#dropdowns').style.padding = "0 0 1.5vh 0";
+	}		
 }
 
 function setupProtos() {
@@ -134,12 +135,13 @@ function changeMap(e) {
 	}		
 	if(value.length == 1) {
 		document.querySelector('#info').style.display = 'none';
+		document.querySelector('#dropdowns').style.padding = "0 0 1.5vh 0";
 	} else {
-		document.querySelector('#info').innerHTML = "";
-		document.querySelector('#info').appendChild(clone);
-		document.getElementById('place').innerHTML = "";
+		document.querySelector('#info,#place').innerHTML = "";
+		document.querySelector('#info').appendChild(clone);		
 		document.getElementById('place').innerHTML = e.currentTarget.options[e.currentTarget.selectedIndex].getAttribute('data-place').trim();
 		document.querySelector('#info').style.display = 'block';
+		document.querySelector('#dropdowns').style.padding = "0";
 	}	
 }
 setup();

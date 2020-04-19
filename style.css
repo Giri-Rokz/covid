@@ -5,7 +5,7 @@ html {
 }
 html,body {
   height: 100%;
-  margin: 1%;
+  margin: 0.6%;
 }
 body {
   display: flex;
@@ -27,13 +27,13 @@ ul {
   margin: 1% 0;
 }
 #info {
-  padding: 0.4vh 0 1.55vh 0;
+  padding: 0.4vh 0 2.8vh 0;
 }
 li {
   display: inline;
   color: white;
   font-size: calc(1vw + 10.25px);
-  padding: 0.8% 3%;
+  padding: 0.8% 4%;
   cursor: pointer;
 }
 li.active {
@@ -46,7 +46,7 @@ li.active {
 #patients,#states {
   margin: 0 0 2vh 0;
   width: 35%;
-  height: 1.7em;
+  height: 1.5em;
   background-color: white;
 }
 #patients {
@@ -61,6 +61,9 @@ li.active {
 #dropdowns {
   display: flex;
 }
-h3 {
-  margin: 2.8% 0;
+h4 {
+  margin: 3.5% 0;
+}
+#menuBody {
+  padding: 3vh 0 0 0;	
 }
