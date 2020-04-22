@@ -122,7 +122,7 @@ function changeMap(e) {
 	value = e.currentTarget.value.split(",");
 	//remove prev markers
 	removeMarkers();
-	map.setZoom(10);
+	map.setZoom(9);
 	for(let i=0; i<value.length;i=i+2) {
 		var marker = new google.maps.Marker({
 		  position: {lat: Number(value[i]), lng: Number(value[i+1])},

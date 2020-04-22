@@ -1,3 +1,6 @@
+@mixin flex {
+  display: flex;
+}
 html {
   font-family: Interstate Verdana sans-serif;
   padding: 0.6em;
@@ -8,7 +11,7 @@ html,body {
   margin: 0.6%;
 }
 body {
-  display: flex;
+  @include flex;  
   flex-direction: column;
 }
 * {
@@ -35,9 +38,9 @@ li {
   font-size: calc(1vw + 10.25px);
   padding: 0.8% 4%;
   cursor: pointer;
-}
-li.active {
-  background-color: red;
+  &.active {
+	background-color: red;
+  }  
 }
 /*Apr2*/
 #map {
@@ -59,11 +62,17 @@ li.active {
   width: 100%
 }
 #dropdowns {
-  display: flex;
+  @include flex;
 }
 h4 {
   margin: 3.5% 0;
 }
 #menuBody {
   padding: 3vh 0 0 0;	
+}
+/*media*/
+@media screen and (min-width:700px) {
+	body {
+		margin: 0.6% 10% 0.6% 10%;
+	}
 }
