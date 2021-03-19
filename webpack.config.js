@@ -1,6 +1,6 @@
 const path = require('path');
 const optimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
-const htmlPlugin = require('html-webpack-plugin');
+//const htmlPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const terserPlugin = require('terser-webpack-plugin');

@@ -1,3 +1,10 @@
+if('serviceWorker' in navigator) {
+	window.addEventListener('load', ()=> {
+		navigator.serviceWorker.register('worker.js').then(()=>console.log('SW registered'))
+		.catch(err=>console.log('SW not registered'+err));
+	})
+}
+
 let canvas = document.getElementById('covid19').getContext('2d');
 canvas.font = "3em Interstate sans-serif Verdana";
 canvas.color = "white";
@@ -18,7 +25,7 @@ window.initMap = ()=>{
 function buildDropdown() {	
 	try {
 		//let source = setupProtos.loadJS();		
-		//source.then(()=>{            
+		//source.then((file)=>{            
 		import(/* webpackChunkName:"data" */ './data.js').then((file)=> {
 			this.historyData = file.default.historyData;
 			this.states = file.default.states;
